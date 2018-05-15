@@ -15,6 +15,26 @@ services:
     image: lphoward/fake-s3
     ports:
       - "4569:4569"
+    networks:
+      - main
+
+  upload-api:
+    image: mscblog/upload-api:latest
+    ports:
+      - 3001:3000
+    environment:
+      SERVICE_DISCOVERY_HOST: ${consul_host}
+      SERVICE_DISCOVERY_PORT: ${consul_port}
+      HOSTNAME: upload-api:3000
+      ACCESS_KEY_ID: abc123
+      SECRET_ACCESS_KEY: abc123
+      S3_BUCKET: blog-test
+      S3_URL: fakes3:4569
+
+    networks:
+      - main
+    command: >
+      /bin/bash -c "sleep 5; node ."
 
 networks:
   main:
