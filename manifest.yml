@@ -1,4 +1,4 @@
-name: msc-blog-upload-api
+name: msc-blog-avatar-api
 instances: 1
 memory: 128M
 buildpack: nodejs_buildpack

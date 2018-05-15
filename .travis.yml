@@ -12,11 +12,11 @@ deploy:
     api: https://api.run.pivotal.io
     username: david.ahern26@gmail.com
     password:
-      secure: XX4HEz0g5nKTjtFyCG9lCRkoBGOCbJSy290sTB6CxNpRH0coE8u9nLLVpSzC6Ze9XYytte8RNhWzrpAtVI3CtTa3T5raVPOltZIRQqxnuXNJa5XE5Imn8VllS6fYyIMALhph3EfISGa0rAnBMGE+OQ5tMOEZUc6L1hq/ShJUY0lF6AJoFK8r7OqHWEcCDQAt0m9r/bKuPyIBtVPcQ8OcfVLYhX0lIrwxOQxkOiSV0oQimTFneZQZdb7ydvNcFBK0iEVwnKF5etVtZzITTQy38I9M99OLTcJiqk8ks25Lq8N5oUm0eKYlXO4/HPJcWYlg0xTiDJBvzH7LGMsgv4HYDH2iFCM1yp0Fsl6MYhwtsI0FH9ODdQ2MdhzQ7NHwxb/U3oh8TwAReVkNuF1H3Tz0Uif44oZ1ZJJp0gr25OK+7HE8pKXHi7YjLKbo+MrS93pi2O2WMwf8JB/UaQuXEJVJWo4XKfYpogFhMKkqUVUXWgGwpoNttlWMPu4xcRaUQeerlPwbeoVlv/QzcPNGcTK8HNCTAfzgpcoTi9H4iLXLobTf4D5jxTgMH3MlSQLlHeIrMhnsa5tUxhXZWqOFA4UMbWZSZ3cxSWO246VaYov8vJ+bzwJMxXRkYXx5L8YblxHZL/isuTqc4Ak8YBElzOXnK5FnWAdByKNtsZGD9l8l5Mk=
+      secure: ce1MwlT1wbb80F+m2sxb2vIB4CcunsI9SEPyjWcXAifAvkEEm0LyyW63bzsyJ3QpujsfyQWIL7dtbLjw1RHQ1UQlI/We5tFvIWCyOr/FW5D5INNGTEXQSS9k+kWCAxkHgwsqC3UXhn0Lf8XMbq7n8ii9E+SSEnS52H81+vbSunOB9em7DLmb26WPcEfA3KVpCxeu+6gBG4MQfUe4/qoGfNKsWS2+awdCgomCW/NeLbx12JYOhmNO8XgBPNlVbhQb8t3fxqoOiJm3HDRm9teZRh0jbRbDhlOufOCdSci0W3DN40vB781LoHr05nSRuqONEvp5wZQZrtvRl6wKyCay3PiNsWnlAttvm4oSVz8OOef44SA8e37oV6ISPH0+E72GhGgKx0sP+U02ILl35sdnEQZIeEfkD2ADiwkFC/8PXxabxfnI33UdrU8ZxzxazyXa8ba3jIZ9OqOihow1YJB249abdJMcnhIkBx+SRc8xCl6651mQfbFUmeBVzzjGWxc66BxalXOYgrQfX2eWH7pT5mfvmqnh47xiyc/QKhif5nOsV87CXDw+2RH8affqWhap2UmVoJmV5gbPcOn4PG0euC1xjliShJEF7Wjl3kXNyWai7XMkEkurOWwexVCYD6cIrM9EoDtpnxeR7f8McaGjn9qysPUs6SvkKEABOohvo6U=
     organization: thor
     space: dev
     on:
-      repo: msc-blog-assignment/msc-blog-upload-api
+      repo: msc-blog-assignment/msc-blog-avatar-api
       branch: master
   - provider: script
     script: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && yarn docker:tag && yarn docker:push
