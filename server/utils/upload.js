@@ -1,22 +1,40 @@
 'use strict';
 
+const {createReadStream} = require('fs');
 const multiparty = require('multiparty');
 const _ = require('lodash');
 
 const getFileFromRequest = (req) => new Promise((resolve, reject) => {
   const form = new multiparty.Form();
 
-  form.parse(req, (err, fields, files) => {
-    if (err) reject(err);
+  form.on('part', part => {
+    if (part.filename) {
+      const FormData = require('form-data');
+      const request = require('request');
+      const form = new FormData();
 
-    if (!_.has(files, 'file') || files['file'].length === 0) {
-      return reject('File was not found in form data.');
+      form.append('file', part, {filename: part.filename});
+
+      /* const r = request.post('http://localhost:3001/api/uploads/upload?userId=test',
+        {'headers': {'transfer-encoding': 'chunked'}},
+        (err, res, body) => {
+          console.log(res);
+          err ? reject(err) : resolve(body);
+        });
+        r._form = form;
+        */
+
+      request.post({
+        url: 'http://localhost:3001/api/uploads/upload?userId=test',
+        form
+      }, function (err, res, body) {
+        console.log(res);
+        err ? reject(err) : resolve(body);
+      });
     }
-
-    const file = files['file'][0];
-
-    file ? resolve(file) : reject('File was not found in form data.');
   });
+
+  form.parse(req);
 });
 
 module.exports = {

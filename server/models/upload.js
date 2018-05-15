@@ -1,26 +1,19 @@
 'use strict';
 
 let {getFileFromRequest} = require('../utils/upload');
-let {uploadFileToS3} = require('../utils/s3');
 
 module.exports = Upload => {
   Upload.upload = (userId, req, next) => {
-    let uploadedFile = Upload.app.models.UploadedFile;
+    let avatar = Upload.app.models.Avatar;
 
     getFileFromRequest(req)
-      .then((file) => uploadFileToS3(file))
       .then((file) => {
-        uploadedFile.create({
-          userId,
-          link: file.Location,
-          etag: file.ETag,
-          bucket: file.Bucket,
-          key: file.Key
-        }, (err, file) => {
+        console.log(file);
+        avatar.create({userId, avatar: file.link}, (err, file) => {
           next(err, file);
         });
       })
-      .catch((err) => next(err, 'Unable to upload to s3'));
+      .catch((err) => next(err, 'Unable to upload image'));
   };
 
   Upload.sharedClass.methods().forEach(method => {
