@@ -1,22 +1,44 @@
 'use strict';
 
 const multiparty = require('multiparty');
+const request = require('request');
 const _ = require('lodash');
 
-const getFileFromRequest = (req) => new Promise((resolve, reject) => {
+const getFileFromRequest = (req, userId, uploadUrl) => new Promise((resolve, reject) => {
   const form = new multiparty.Form();
 
-  form.parse(req, (err, fields, files) => {
-    if (err) reject(err);
-
-    if (!_.has(files, 'file') || files['file'].length === 0) {
-      return reject('File was not found in form data.');
+  form.on('part', part => {
+    if (part.filename) {
+      request({
+        method: 'POST',
+        url: uploadUrl.Address,
+        qs: {
+          userId
+        },
+        formData: {
+          file: {
+            value: part,
+            options: {
+              filename: part.filename,
+              contentType: part['content-type'],
+              knownLength: part.byteCount
+            }
+          }
+        },
+        headers: {
+          'content-encoding': 'chunked'
+        }
+      }, (err, httpResponse, body) => {
+        err ? reject(err) : resolve(JSON.parse(body));
+      });
     }
-
-    const file = files['file'][0];
-
-    file ? resolve(file) : reject('File was not found in form data.');
   });
+
+  form.on('error', (err) => {
+    reject(err);
+  });
+
+  form.parse(req);
 });
 
 module.exports = {

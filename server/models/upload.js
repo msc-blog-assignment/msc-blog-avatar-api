@@ -1,26 +1,20 @@
 'use strict';
 
-let {getFileFromRequest} = require('../utils/upload');
-let {uploadFileToS3} = require('../utils/s3');
+const {getFileFromRequest} = require('../utils/upload');
+const {getServices} = require('../utils/service-discovery');
 
 module.exports = Upload => {
   Upload.upload = (userId, req, next) => {
-    let uploadedFile = Upload.app.models.UploadedFile;
+    let avatar = Upload.app.models.Avatar;
 
-    getFileFromRequest(req)
-      .then((file) => uploadFileToS3(file))
+    getServices()
+      .then((services) => getFileFromRequest(req, userId, services['msc-blog-upload-api']))
       .then((file) => {
-        uploadedFile.create({
-          userId,
-          link: file.Location,
-          etag: file.ETag,
-          bucket: file.Bucket,
-          key: file.Key
-        }, (err, file) => {
+        avatar.create({userId, avatar: file.link}, (err, file) => {
           next(err, file);
         });
       })
-      .catch((err) => next(err, 'Unable to upload to s3'));
+      .catch((err) => next(err, 'Unable to upload image'));
   };
 
   Upload.sharedClass.methods().forEach(method => {

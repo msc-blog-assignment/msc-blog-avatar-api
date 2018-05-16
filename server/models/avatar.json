@@ -1,6 +1,6 @@
 {
-  "name": "uploaded-file",
-  "plural": "uploaded-files",
+  "name": "avatar",
+  "plural": "avatar",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -20,19 +20,7 @@
       "type": "string",
       "required": true
     },
-    "link": {
-      "type": "string",
-      "required": true
-    },
-    "etag": {
-      "type": "string",
-      "required": true
-    },
-    "bucket": {
-      "type": "string",
-      "required": true
-    },
-    "key": {
+    "avatar": {
       "type": "string",
       "required": true
     }
