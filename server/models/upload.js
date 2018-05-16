@@ -1,14 +1,15 @@
 'use strict';
 
-let {getFileFromRequest} = require('../utils/upload');
+const {getFileFromRequest} = require('../utils/upload');
+const {getServices} = require('../utils/service-discovery');
 
 module.exports = Upload => {
   Upload.upload = (userId, req, next) => {
     let avatar = Upload.app.models.Avatar;
 
-    getFileFromRequest(req)
+    getServices()
+      .then((services) => getFileFromRequest(req, userId, services['msc-blog-upload-api']))
       .then((file) => {
-        console.log(file);
         avatar.create({userId, avatar: file.link}, (err, file) => {
           next(err, file);
         });
