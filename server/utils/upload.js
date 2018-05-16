@@ -11,7 +11,7 @@ const getFileFromRequest = (req, userId, uploadUrl) => new Promise((resolve, rej
     if (part.filename) {
       request({
         method: 'POST',
-        url: uploadUrl.Address,
+        url: `${uploadUrl.Address}/api/uploads/upload`,
         qs: {
           userId
         },
