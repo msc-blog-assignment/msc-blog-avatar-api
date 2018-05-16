@@ -11,7 +11,7 @@
     "start": "cross-env HOSTNAME=localhost SERVICE_DISCOVERY_HOST=localhost SERVICE_DISCOVERY_PORT=5300 S3_URL=localhost:4569 ACCESS_KEY_ID=abc123 SECRET_ACCESS_KEY=abc123 S3_BUCKET=msc-blog-test node .",
     "test": "exit 0",
     "docker": "docker build -t mscblog/avatar-api .",
-    "docker:tag": "docker tag mscblog/upload-api mscblog/avatar-api",
+    "docker:tag": "docker tag mscblog/avatar-api mscblog/avatar-api",
     "docker:push": "docker push mscblog/avatar-api"
   },
   "dependencies": {
