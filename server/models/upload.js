@@ -10,7 +10,7 @@ module.exports = Upload => {
     getServices()
       .then((services) => getFileFromRequest(req, userId, services['msc-blog-upload-api']))
       .then((file) => {
-        avatar.create({userId, avatar: file.link}, (err, file) => {
+        avatar.upsert({userId, avatar: file.link}, (err, file) => {
           next(err, file);
         });
       })
