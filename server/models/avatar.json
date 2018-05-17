@@ -7,18 +7,14 @@
     "validateUpsert": true
   },
   "properties": {
-    "id": {
+    "userId": {
       "id": true,
       "type": "string",
-      "defaultFn": "uuid"
+      "required": true
     },
     "createdAt": {
       "type": "date",
       "defaultFn": "now"
-    },
-    "userId": {
-      "type": "string",
-      "required": true
     },
     "avatar": {
       "type": "string",
